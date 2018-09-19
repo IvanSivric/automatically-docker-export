@@ -5,5 +5,8 @@ set -u
 
 CONTAINER_NAMES=$(docker ps --format "{{.Names}}")
 for container_name in $CONTAINER_NAMES; do
-    docker export container_name > "$container_name_$(date +"%m%d%y_%H%M%S").tar"
+    ARCHIVE_NAME="$container_name-$(date +"%m%d%y_%H%M%S").tar"
+    echo "Exporting $container_name to archive $ARCHIVE_NAME ."
+    docker export $container_name > $ARCHIVE_NAME
 done
+
